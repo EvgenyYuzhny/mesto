@@ -1,0 +1,8 @@
+.elements__element {
+    max-width: 282px;
+    max-height: 361px;
+    margin: 0;
+    padding: 0;
+    background-color: #FFF;
+    border-radius: 10px 10px 10px 10px;
+}

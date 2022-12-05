@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+    <link rel="stylesheet" href="./pages/index.css">
+  </head>
+
+  <body class="page">
+    
+    <header class="header">
+      <img class="header__logo" src="./images/Vector.svg" alt="Логотип Mesto">
+    </header>
+
+    <main class="content">
+
+      <section class="profile">
+        <div class="profile__block" > 
+          <img class="profile__avatar" src="./images/JIK.jpg" alt="Фотография Кусто">
+          <div class="profile__info">
+            <div class="profile__info-in">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <button class="profile__rectangle" type="button"></button>
+            </div>
+            <p class="profile__text">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__rectangle-2" type="button"></button>
+      </section>
+
+      <section class="elements">
+        <div class="elements__element">
+          <img class="elements__img" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Летнее фото полуразрушенного храма в Карачаевске">
+          <div class="elements__info">
+            <h2 class="elements__title">Карачаевск</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__img" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Фото на закате вдали гора Эльбрус">
+          <div class="elements__info">
+            <h2 class="elements__title">Гора Эльбрус</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__img" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Фото с Домбая, гора с ледником на фоне туч">
+          <div class="elements__info">
+            <h2 class="elements__title">Домбай</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__img" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Фото на закате вдали гора Эльбрус">
+          <div class="elements__info">
+            <h2 class="elements__title">Гора Эльбрус</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__img" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Фото с Домбая, гора с ледником на фоне туч">
+          <div class="elements__info">
+            <h2 class="elements__title">Домбай</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__img" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Летнее фото полуразрушенного храма в Карачаевске">
+          <div class="elements__info">
+            <h2 class="elements__title">Карачаево-Черкесия</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">&commat; 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form">
+          <div class="popup__form-in">
+            <input class="popup__input popup__input_type_name" name="nameInput" type="text" placeholder="Имя">
+            <input class="popup__input popup__input_type_about" name="aboutInput" type="text" placeholder="О себе">
+          </div>
+        <button class="popup__save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="./scripts/index.js"></script>
+  </body> 
+</html>
+
