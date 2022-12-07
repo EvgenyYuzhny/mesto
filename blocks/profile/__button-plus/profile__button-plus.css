@@ -21,6 +21,7 @@
 .profile__button-plus {
     margin-top: 36px;
     }
+}
 
 @media screen and (max-width: 320px) {
 .profile__button-plus {
