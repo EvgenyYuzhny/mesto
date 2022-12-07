@@ -1,6 +1,6 @@
 .popup__input {
   width: 358px;
-  margin: 0 25px 25px 22px;
+  margin: 0 22px 25px;
   padding: 0 20px 8px 0;
   display: block;
   box-sizing: border-box;
@@ -15,6 +15,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.popup__input:last-child {
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 768px) {

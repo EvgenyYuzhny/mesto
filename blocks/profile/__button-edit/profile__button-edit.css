@@ -1,0 +1,24 @@
+.profile__button-edit {
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    background-image: url('../../../images/Vector-karandash.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: inherit;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: opacity .2s ease-in-out;
+}
+
+.profile__button-edit:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__button-edit {
+        width: 18px;
+        height: 18px;
+        }
+    }
+      

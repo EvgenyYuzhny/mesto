@@ -13,11 +13,11 @@
   color: #fff;
   box-sizing: border-box;
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
 
 .popup__save:hover {
   opacity: .8;
-  transition: 0.2s ease-in-out;
 }
 
 @media screen and (max-width: 768px) {

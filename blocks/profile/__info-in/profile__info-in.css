@@ -10,7 +10,7 @@
 }
 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 768px) {
 .profile__info-in {
     gap: 10px;
     }
