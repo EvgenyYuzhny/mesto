@@ -32,7 +32,7 @@ const linkInputCard = document.querySelector("#input-link");
 // Попап увеличения картинок
 const imgPopup = document.querySelector('#img-popup');
 const imgPopupImage = imgPopup.querySelector('.popup__img');
-const imgPopupTitle = imgPopup.querySelector('.popup__title_down');
+const imgPopupTitle = imgPopup.querySelector('.popup__title-down');
 
 
 // Теймплейт карточки
