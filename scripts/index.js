@@ -88,6 +88,12 @@ addStartCards(initialCards);
 //  Функция создания карточки 
 
 function createCard(name, link) {
+  const cardItem = takeCard(name, link);
+  cardsList.prepend(cardItem);
+}
+
+
+function takeCard(name, link) {
 
   const card = cardsTemplate.cloneNode(true); // Клонируем шаблон
   const cardImg = card.querySelector('.card__img');
@@ -110,7 +116,7 @@ function createCard(name, link) {
     openBigImgCard(cardImg, name);
     });
 
-  cardsList.prepend(card);
+    return card;
 }
 
 
