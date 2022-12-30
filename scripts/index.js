@@ -41,13 +41,13 @@ const cardsList= document.querySelector(".elements__list");
 
 
 // Кнопка закрытия попапов
-const popupCloseButton = document.querySelectorAll(".popup__close");
+const popupCloseButtons = document.querySelectorAll(".popup__close");
 
 
 // Клик по кнопке редактировать профайл
 editProfileButton.addEventListener('click', function() {
 
-  profilePopup.classList.add('popup_opened');
+  openPopup(profilePopup)
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileText.textContent;
 });
@@ -60,7 +60,7 @@ function sendFormEditProfile(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileText.textContent = aboutInput.value;
-  profilePopup.classList.remove('popup_opened');
+  closePopup(profilePopup)
 }
 
 // отправка данных из формы редактирования профиля
@@ -69,7 +69,7 @@ editFormPopup.addEventListener('submit', sendFormEditProfile);
 // Клик по кнопке добавить карточку
 addCardsButton.addEventListener('click', () => {
 
-  cardsPopup.classList.add('popup_opened');
+  openPopup(cardsPopup)
   addFormCard.reset();
 });
 
@@ -96,6 +96,7 @@ function createCard(name, link) {
 
   card.querySelector('.card__title').textContent = name;
   cardImg.src = link;
+  cardImg.alt = `${name}.`;
   
   cardDelete.addEventListener('click', () => {
     card.remove();
@@ -106,10 +107,10 @@ function createCard(name, link) {
     }); 
 
   cardImg.addEventListener('click', () => {
-    bigImgCard(cardImg, name);
+    openBigImgCard(cardImg, name);
     });
 
-  cardsList.prepend(card); 
+  cardsList.prepend(card);
 }
 
 
@@ -120,7 +121,7 @@ function sendFormAddCard(evt) {
   const name = nameInputCard.value;
   const link = linkInputCard.value;
   createCard(name, link);
-  cardsPopup.classList.remove('popup_opened');
+  closePopup(cardsPopup)
 }
 
 // отправка данных из формы добавления новой карточки
@@ -128,12 +129,20 @@ addFormCard.addEventListener('submit', sendFormAddCard);
 
  
 // Функция увеличения картинки
-function bigImgCard(img, title) {
+function openBigImgCard(img, title) {
 
-  imgPopup.classList.add('popup_opened');
+  openPopup(imgPopup)
   imgPopupImage.src = img.src;
+  imgPopupImage.alt = `${title}.`;
   imgPopupTitle.textContent = title;
 }
+
+// Функция Открытия попапов
+function openPopup(popup) {
+
+  popup.classList.add('popup_opened');
+}
+
 // Функция Закрытие попапов
 function closePopup(popup) {
 
@@ -141,7 +150,7 @@ function closePopup(popup) {
 }
 
 // Вешаем один обработчик на все кнопки закрытия
-popupCloseButton.forEach(button => {
+popupCloseButtons.forEach(button => {
 
   button.addEventListener('click', (evt) => {
     closePopup(evt.currentTarget.closest('.popup'));
