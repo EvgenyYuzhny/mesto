@@ -43,6 +43,9 @@ const cardsList= document.querySelector(".elements__list");
 // Кнопка закрытия попапов
 const popupCloseButtons = document.querySelectorAll(".popup__close");
 
+// Все попапы
+const popups = document.querySelectorAll('.popup')
+
 
 // Клик по кнопке редактировать профайл
 editProfileButton.addEventListener('click', function() {
@@ -147,12 +150,14 @@ function openBigImgCard(img, title) {
 function openPopup(popup) {
 
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeEscape)
 }
 
 // Функция Закрытие попапов
 function closePopup(popup) {
 
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeEscape)
 }
 
 // Вешаем один обработчик на все кнопки закрытия
@@ -163,4 +168,31 @@ popupCloseButtons.forEach(button => {
   })
 })
 
+// Закрываем нажатием на Esc
 
+function closeEscape(evt) {
+  const key = evt.key;
+  if (key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'))
+  }
+};
+
+// Закрываем попапы нажатием на оверлей 
+
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+    })
+});
+
+// Запускаем валидацию из файла validation.js
+enableValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input", 
+  submitButtonSelector: ".popup__save", 
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error", 
+  errorClass: "popup__input-error_active", 
+});

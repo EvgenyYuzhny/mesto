@@ -48,8 +48,10 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" id="user">
           <div class="popup__form-in">
-            <input class="popup__input popup__input_type_name" id="nameInput" type="text" placeholder="Имя">
-            <input class="popup__input popup__input_type_about" id="aboutInput" type="text" placeholder="О себе">
+            <input class="popup__input popup__input_type_name" id="nameInput" type="text"  value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+            <span class="popup__input-error" id="input-name-error"></span>
+            <input class="popup__input popup__input_type_about" id="aboutInput" type="text"  value="Исследователь океана" minlength="2" maxlength="200" required>
+            <span class="popup__input-error" id="input-about-error"></span>
           </div>
         <button class="popup__save" type="submit">Сохранить</button>
         </form>
@@ -62,10 +64,12 @@
       <div class="popup__container">
         <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" id="place">
+        <form class="popup__form" id="place" novalidate>
           <div class="popup__form-in">
-            <input class="popup__input popup__input_type_name" id="input-img-title" type="text" placeholder="Название">
-            <input class="popup__input popup__input_type_about" id="input-link" type="url" placeholder="Ссылка на картинку">
+            <input class="popup__input popup__input_type_name" id="input-img-title" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+            <span class="popup__input-error" id="input-img-title-error"></span>
+            <input class="popup__input popup__input_type_about" id="input-link" type="url" placeholder="Ссылка на картинку" required>
+            <span class="popup__input-error" id="input-link-error"></span>
           </div>
           <button class="popup__save" type="submit">Создать</button>
         </form>
@@ -96,7 +100,8 @@
 </template>
 
     <script src="./scripts/cards.js"></script>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
+
   </body> 
 </html>
-
