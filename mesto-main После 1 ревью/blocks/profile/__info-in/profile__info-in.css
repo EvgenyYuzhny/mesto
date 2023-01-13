@@ -1,0 +1,17 @@
+.profile__info-in {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+}
+
+
+@media screen and (max-width: 768px) {
+.profile__info-in {
+    gap: 10px;
+    }
+}
