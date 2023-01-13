@@ -1,4 +1,6 @@
 .popup__form-in {
+  display: flex;
+  flex-direction: column;
   padding: 0;
   align-self: center;
   border: none;
