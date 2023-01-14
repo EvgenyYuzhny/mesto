@@ -4,14 +4,15 @@
 const profilePopup = document.querySelector("#user-popup");
 
 // Кнопка редактирования профайла
-const editProfileButton = document.querySelector(".profile__button-edit");
+const popupProfileOpenButton = document.querySelector(".profile__button-edit");
+
 
 // Элементы профайла заголовка и текста на странице
 const profileTitle = document.querySelector(".profile__title");
 const profileText = document.querySelector(".profile__text");
 
 // Форма редактирования профайла в попапе 
-const editFormPopup = document.querySelector("#user");
+const popupFormEdit = document.querySelector("#user");
 const nameInput = document.querySelector("#nameInput");
 const aboutInput = document.querySelector("#aboutInput");
 
@@ -20,11 +21,11 @@ const aboutInput = document.querySelector("#aboutInput");
 const cardsPopup = document.querySelector("#place-popup");
 
 // Кнопка добавления карточки 
-const addCardsButton = document.querySelector(".profile__button-plus");
+const cardsButtonAdd = document.querySelector(".profile__button-plus");
 
 
 // Форма добавления карточки 
-const addFormCard = document.querySelector("#place"); 
+const formAddCard = document.querySelector("#place"); 
 const nameInputCard = document.querySelector("#input-img-title"); 
 const linkInputCard = document.querySelector("#input-link");
 
@@ -48,7 +49,7 @@ const popups = document.querySelectorAll('.popup')
 
 
 // Клик по кнопке редактировать профайл
-editProfileButton.addEventListener('click', function() {
+popupProfileOpenButton.addEventListener('click', function() {
 
   openPopup(profilePopup)
   nameInput.value = profileTitle.textContent;
@@ -67,13 +68,13 @@ function sendFormEditProfile(evt) {
 }
 
 // отправка данных из формы редактирования профиля
-editFormPopup.addEventListener('submit', sendFormEditProfile); 
+popupFormEdit.addEventListener('submit', sendFormEditProfile); 
 
 // Клик по кнопке добавить карточку
-addCardsButton.addEventListener('click', () => {
+cardsButtonAdd.addEventListener('click', () => {
 
   openPopup(cardsPopup)
-  addFormCard.reset();
+  formAddCard.reset();
 });
 
 // функция добавления начальных изображений из массива
@@ -134,7 +135,7 @@ function sendFormAddCard(evt) {
 }
 
 // отправка данных из формы добавления новой карточки
-addFormCard.addEventListener('submit', sendFormAddCard); 
+formAddCard.addEventListener('submit', sendFormAddCard); 
 
  
 // Функция увеличения картинки
