@@ -47,6 +47,12 @@ const popupCloseButtons = document.querySelectorAll(".popup__close");
 // Все попапы
 const popups = document.querySelectorAll('.popup')
 
+// новые переменные после ревью
+// массив инпутов попапов для добавления карточки
+const arrayPopupInputsAddCard = Array.from(cardsPopup.querySelectorAll('.popup__input'));
+// кнопка сохранить в попапе добавления карточки
+const saveButtonAddCard = formAddCard.querySelector('.popup__save');
+
 
 // Клик по кнопке редактировать профайл
 popupProfileOpenButton.addEventListener('click', function() {
@@ -73,8 +79,16 @@ popupFormEdit.addEventListener('submit', sendFormEditProfile);
 // Клик по кнопке добавить карточку
 cardsButtonAdd.addEventListener('click', () => {
 
-  openPopup(cardsPopup)
+  openPopup(cardsPopup);
   formAddCard.reset();
+  
+  // переключение кнопки при невалидных полях
+  toggleButtonState(arrayPopupInputsAddCard, saveButtonAddCard, enableConfig.inactiveButtonClass);
+
+  // Скрыть спаны ошибок
+  arrayPopupInputsAddCard.forEach((errorSpan) => {
+      hideInputError(cardsPopup, errorSpan, enableConfig)
+  })
 });
 
 // функция добавления начальных изображений из массива
@@ -188,6 +202,8 @@ popups.forEach((popup) => {
     })
 });
 
+/*
+
 // Запускаем валидацию из файла validation.js
 enableValidation({
   formSelector: ".popup__form",
@@ -197,3 +213,16 @@ enableValidation({
   inputErrorClass: "popup__input_type_error", 
   errorClass: "popup__input-error_active", 
 });
+*/
+
+const enableConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input", 
+  submitButtonSelector: ".popup__save", 
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error", 
+  errorClass: "popup__input-error_active",
+};
+
+// Запускаем валидацию из файла validation.js
+enableValidation(enableConfig);
