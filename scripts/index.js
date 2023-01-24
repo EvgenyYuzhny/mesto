@@ -1,3 +1,9 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { initialCards } from './initialCards.js';
+
+
+
 // Объявляем переменные через DOM
 
 // Попап редактирования профайла
@@ -5,7 +11,6 @@ const profilePopup = document.querySelector("#user-popup");
 
 // Кнопка редактирования профайла
 const popupProfileOpenButton = document.querySelector(".profile__button-edit");
-
 
 // Элементы профайла заголовка и текста на странице
 const profileTitle = document.querySelector(".profile__title");
@@ -16,30 +21,25 @@ const popupFormEdit = document.querySelector("#user");
 const nameInput = document.querySelector("#nameInput");
 const aboutInput = document.querySelector("#aboutInput");
 
-
 // Попап добавления карточки
 const cardsPopup = document.querySelector("#place-popup");
 
 // Кнопка добавления карточки 
 const cardsButtonAdd = document.querySelector(".profile__button-plus");
 
-
 // Форма добавления карточки 
 const formAddCard = document.querySelector("#place"); 
 const nameInputCard = document.querySelector("#input-img-title"); 
 const linkInputCard = document.querySelector("#input-link");
-
 
 // Попап увеличения картинок
 const imgPopup = document.querySelector('#img-popup');
 const imgPopupImage = imgPopup.querySelector('.popup__img');
 const imgPopupTitle = imgPopup.querySelector('.popup__title-down');
 
-
 // Теймплейт карточки
 const cardsTemplate = document.querySelector('#templateCard').content.querySelector('.card'); // значения берутся из свёрстанного попапа теймплейт
 const cardsList= document.querySelector(".elements__list");
-
 
 // Кнопка закрытия попапов
 const popupCloseButtons = document.querySelectorAll(".popup__close");
@@ -47,7 +47,6 @@ const popupCloseButtons = document.querySelectorAll(".popup__close");
 // Все попапы
 const popups = document.querySelectorAll('.popup')
 
-// новые переменные после ревью
 // массив инпутов попапов для добавления карточки
 const arrayPopupInputsAddCard = Array.from(cardsPopup.querySelectorAll('.popup__input'));
 // кнопка сохранить в попапе добавления карточки
@@ -56,7 +55,6 @@ const saveButtonAddCard = formAddCard.querySelector('.popup__save');
 
 // Клик по кнопке редактировать профайл
 popupProfileOpenButton.addEventListener('click', function() {
-
   openPopup(profilePopup)
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileText.textContent;
@@ -64,38 +62,32 @@ popupProfileOpenButton.addEventListener('click', function() {
 
 
 // функция отправляет изменения в профайле
-
 function sendFormEditProfile(evt) {
-
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileText.textContent = aboutInput.value;
   closePopup(profilePopup)
 }
 
-// отправка данных из формы редактирования профиля
+// отправка данных из формы редактирования профайла
 popupFormEdit.addEventListener('submit', sendFormEditProfile); 
+
 
 // Клик по кнопке добавить карточку
 cardsButtonAdd.addEventListener('click', () => {
-
   openPopup(cardsPopup);
   formAddCard.reset();
-  
   // переключение кнопки при невалидных полях
-  toggleButtonState(arrayPopupInputsAddCard, saveButtonAddCard, enableConfig.inactiveButtonClass);
-
+  toggleButtonState(arrayPopupInputsAddCard, saveButtonAddCard, validationConfig.inactiveButtonClass);
   // Скрыть спаны ошибок
   arrayPopupInputsAddCard.forEach((errorSpan) => {
-      hideInputError(cardsPopup, errorSpan, enableConfig)
+      hideInputError(cardsPopup, errorSpan, validationConfig)
   })
 });
 
 // функция добавления начальных изображений из массива
 function addStartCards(initialCards) {
-
   initialCards.forEach(({name, link}) => {
-    
     createCard(name, link);
   })
 }
@@ -104,12 +96,10 @@ function addStartCards(initialCards) {
 addStartCards(initialCards);
 
 //  Функция создания карточки 
-
 function createCard(name, link) {
   const cardItem = takeCard(name, link);
   cardsList.prepend(cardItem);
 }
-
 
 function takeCard(name, link) {
 
@@ -137,20 +127,21 @@ function takeCard(name, link) {
     return card;
 }
 
+// отправка данных из формы добавления новой карточки
+formAddCard.addEventListener('submit', sendFormAddCard); 
 
 // функция принимает из формы данные для создания новой карточки
 function sendFormAddCard(evt) {
 
   evt.preventDefault();
+
   const name = nameInputCard.value;
   const link = linkInputCard.value;
-  createCard(name, link);
+
+
+  createCard(name, link); 
   closePopup(cardsPopup)
 }
-
-// отправка данных из формы добавления новой карточки
-formAddCard.addEventListener('submit', sendFormAddCard); 
-
  
 // Функция увеличения картинки
 function openBigImgCard(img, title) {
@@ -202,7 +193,7 @@ popups.forEach((popup) => {
     })
 });
 
-const enableConfig = {
+const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input", 
   submitButtonSelector: ".popup__save", 
@@ -211,5 +202,10 @@ const enableConfig = {
   errorClass: "popup__input-error_active",
 };
 
-// Запускаем валидацию из файла validation.js
-enableValidation(enableConfig);
+
+// Создаем экземпляры класса FormValidator для каждой валидируемой формы:
+const editProfileFormValidator = new FormValidator(validationConfig, popupFormEdit);
+const newPlaceFormValidator = new FormValidator(validationConfig, formAddCard);
+
+editProfileFormValidator.enableValidation();
+newPlaceFormValidator.enableValidation();
