@@ -2,8 +2,6 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initialCards.js';
 
-
-
 // Объявляем переменные через DOM
 
 // Попап редактирования профайла
@@ -53,6 +51,14 @@ const arrayPopupInputsAddCard = Array.from(cardsPopup.querySelectorAll('.popup__
 const saveButtonAddCard = formAddCard.querySelector('.popup__save');
 
 
+// Создаем экземпляры класса FormValidator для каждой валидируемой формы:
+const editProfileFormValidator = new FormValidator(validationConfig, popupFormEdit);
+const newPlaceFormValidator = new FormValidator(validationConfig, formAddCard);
+
+editProfileFormValidator.enableValidation();
+newPlaceFormValidator.enableValidation();
+
+
 // Клик по кнопке редактировать профайл
 popupProfileOpenButton.addEventListener('click', function() {
   openPopup(profilePopup)
@@ -71,6 +77,17 @@ function sendFormEditProfile(evt) {
 
 // отправка данных из формы редактирования профайла
 popupFormEdit.addEventListener('submit', sendFormEditProfile); 
+
+
+initialCards.forEach((item) => {
+  // Создадим экземпляр карточки
+  const card = new Card(item);// передаём объект аргументом
+  // Создаём карточку и возвращаем наружу
+  const cardElement = card.generateCard();
+
+  // Добавляем в DOM
+  document.body.append(cardElement);
+});
 
 
 // Клик по кнопке добавить карточку
@@ -97,8 +114,8 @@ addStartCards(initialCards);
 
 //  Функция создания карточки 
 function createCard(name, link) {
-  const cardItem = takeCard(name, link);
-  cardsList.prepend(cardItem);
+  const card = new Card (name, link);
+  cardsList.prepend(card);
 }
 
 function takeCard(name, link) {
@@ -132,13 +149,9 @@ formAddCard.addEventListener('submit', sendFormAddCard);
 
 // функция принимает из формы данные для создания новой карточки
 function sendFormAddCard(evt) {
-
   evt.preventDefault();
-
   const name = nameInputCard.value;
   const link = linkInputCard.value;
-
-
   createCard(name, link); 
   closePopup(cardsPopup)
 }
@@ -193,7 +206,7 @@ popups.forEach((popup) => {
     })
 });
 
-const validationConfig = {
+export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input", 
   submitButtonSelector: ".popup__save", 
@@ -203,9 +216,3 @@ const validationConfig = {
 };
 
 
-// Создаем экземпляры класса FormValidator для каждой валидируемой формы:
-const editProfileFormValidator = new FormValidator(validationConfig, popupFormEdit);
-const newPlaceFormValidator = new FormValidator(validationConfig, formAddCard);
-
-editProfileFormValidator.enableValidation();
-newPlaceFormValidator.enableValidation();
