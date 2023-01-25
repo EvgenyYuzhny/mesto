@@ -56,7 +56,7 @@ export class FormValidator {
     Параметром передаем элемент массива inputElement*/
     _toggleButtonState() {
       if (this._hasInvalidInput()) {
-        this._buttonElement.classList.add(this._config.ё);
+        this._buttonElement.classList.add(this._config.inactiveButtonClass);
         this._buttonElement.disabled = true;
       } else {
         this._buttonElement.classList.remove(this._config.inactiveButtonClass);
@@ -64,8 +64,6 @@ export class FormValidator {
       }
     };
 
-    
-  
     // Метод установки слушателей
     //метод передаем форму и конфиг(?)
     _setEventListeners() {

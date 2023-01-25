@@ -2,6 +2,15 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initialCards.js';
 
+export const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input", 
+  submitButtonSelector: ".popup__save", 
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error", 
+  errorClass: "popup__input-error_active",
+};
+
 // Объявляем переменные через DOM
 
 // Попап редактирования профайла
@@ -35,11 +44,10 @@ const imgPopup = document.querySelector('#img-popup');
 const imgPopupImage = imgPopup.querySelector('.popup__img');
 const imgPopupTitle = imgPopup.querySelector('.popup__title-down');
 
-// Теймплейт карточки
-const cardsTemplate = document.querySelector('#templateCard').content.querySelector('.card'); // значения берутся из свёрстанного попапа теймплейт
+// Контейнер карточек
 const cardsList= document.querySelector(".elements__list");
 
-// Кнопка закрытия попапов
+// Кнопки закрытия попапов
 const popupCloseButtons = document.querySelectorAll(".popup__close");
 
 // Все попапы
@@ -64,6 +72,7 @@ popupProfileOpenButton.addEventListener('click', function() {
   openPopup(profilePopup)
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileText.textContent;
+  editProfileFormValidator.resetValidation();
 });
 
 
@@ -79,15 +88,17 @@ function sendFormEditProfile(evt) {
 popupFormEdit.addEventListener('submit', sendFormEditProfile); 
 
 
-initialCards.forEach((item) => {
-  // Создадим экземпляр карточки
-  const card = new Card(item);// передаём объект аргументом
+function renderCard (item) {
+  const card = new Card(item, '#templateCard', openBigImgCard);// передаём объект аргументом
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
 
-  // Добавляем в DOM
-  document.body.append(cardElement);
-});
+  // Добавляем и монтируем ее в начало секции с карточками в DOM
+  cardsList.prepend(cardElement);
+}
+
+// Вставляем начальные карточки из массива:
+initialCards.forEach(renderCard);
 
 
 // Клик по кнопке добавить карточку
@@ -95,64 +106,23 @@ cardsButtonAdd.addEventListener('click', () => {
   openPopup(cardsPopup);
   formAddCard.reset();
   // переключение кнопки при невалидных полях
-  toggleButtonState(arrayPopupInputsAddCard, saveButtonAddCard, validationConfig.inactiveButtonClass);
+  newPlaceFormValidator.resetValidation();
   // Скрыть спаны ошибок
-  arrayPopupInputsAddCard.forEach((errorSpan) => {
-      hideInputError(cardsPopup, errorSpan, validationConfig)
-  })
 });
 
-// функция добавления начальных изображений из массива
-function addStartCards(initialCards) {
-  initialCards.forEach(({name, link}) => {
-    createCard(name, link);
-  })
-}
-
-// Запускаем
-addStartCards(initialCards);
-
-//  Функция создания карточки 
-function createCard(name, link) {
-  const card = new Card (name, link);
-  cardsList.prepend(card);
-}
-
-function takeCard(name, link) {
-
-  const card = cardsTemplate.cloneNode(true); // Клонируем шаблон
-  const cardImg = card.querySelector('.card__img');
-  const cardLike = card.querySelector('.card__like');
-  const cardDelete = card.querySelector('.card__delete');
-
-  card.querySelector('.card__title').textContent = name;
-  cardImg.src = link;
-  cardImg.alt = `${name}.`;
-  
-  cardDelete.addEventListener('click', () => {
-    card.remove();
-    }); 
-
-  cardLike.addEventListener('click', () => {
-    cardLike.classList.toggle('card__like_active')
-    }); 
-
-  cardImg.addEventListener('click', () => {
-    openBigImgCard(cardImg, name);
-    });
-
-    return card;
-}
-
-// отправка данных из формы добавления новой карточки
+// отправка данных из формы добавления новой карточки(Добавление нового места)
 formAddCard.addEventListener('submit', sendFormAddCard); 
 
 // функция принимает из формы данные для создания новой карточки
 function sendFormAddCard(evt) {
+  // отменяем действие по умолчанию, чтобы не перезагружать страницу:
   evt.preventDefault();
   const name = nameInputCard.value;
   const link = linkInputCard.value;
-  createCard(name, link); 
+  const item = {name: name, link: link}
+
+  renderCard(item);
+
   closePopup(cardsPopup)
 }
  
@@ -205,14 +175,3 @@ popups.forEach((popup) => {
         }
     })
 });
-
-export const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input", 
-  submitButtonSelector: ".popup__save", 
-  inactiveButtonClass: "popup__save_disabled",
-  inputErrorClass: "popup__input_type_error", 
-  errorClass: "popup__input-error_active",
-};
-
-
