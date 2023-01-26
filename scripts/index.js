@@ -89,7 +89,7 @@ popupFormEdit.addEventListener('submit', sendFormEditProfile);
 
 
 function renderCard (item) {
-  const card = new Card(item, '#templateCard', openBigImgCard);// передаём объект аргументом
+  const card = new Card(item, '#templateCard', handleImageClick);// передаём объект аргументом
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
 
@@ -127,7 +127,7 @@ function sendFormAddCard(evt) {
 }
  
 // Функция увеличения картинки
-function openBigImgCard(img, title) {
+function handleImageClick(img, title) {
 
   openPopup(imgPopup)
   imgPopupImage.src = img.src;
