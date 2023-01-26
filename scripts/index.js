@@ -127,10 +127,10 @@ function sendFormAddCard(evt) {
 }
  
 // Функция увеличения картинки
-function handleImageClick(img, title) {
+function handleImageClick(title,img) {
 
   openPopup(imgPopup)
-  imgPopupImage.src = img.src;
+  imgPopupImage.src = img;
   imgPopupImage.alt = `${title}.`;
   imgPopupTitle.textContent = title;
 }
