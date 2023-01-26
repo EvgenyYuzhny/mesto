@@ -2,7 +2,7 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initialCards.js';
 
-export const validationConfig = {
+const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input", 
   submitButtonSelector: ".popup__save", 
